@@ -1,4 +1,3 @@
-document.documentElement.lang='pl';
 (function(){
   var btn=document.querySelector('.menu-btn'),nav=document.getElementById('mnav');
   if(btn&&nav){btn.addEventListener('click',function(){var o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o?'true':'false');});}
@@ -10,14 +9,14 @@ document.documentElement.lang='pl';
   function toMin(s){var a=s.split(':');return (+a[0])*60+(+a[1]);}
   var now=nowMin();
   document.querySelectorAll('[data-live-times]').forEach(function(list){
-    var found=false;
+    var nextFound=false;
     list.querySelectorAll('li[data-t]').forEach(function(li){
       var t=toMin(li.getAttribute('data-t')),st=li.querySelector('.state');
       if(now>t+60){li.classList.add('past');}
-      else if(now>=t){li.classList.add('now');if(st)st.innerHTML='<i class="lamp" aria-hidden="true"></i>trwa teraz';found=true;}
-      else if(!found){li.classList.add('next');if(st)st.innerHTML='<i class="lamp" aria-hidden="true"></i>najbliższa';found=true;}
+      else if(now>=t){li.classList.add('now');if(st)st.innerHTML='<i class="lamp" aria-hidden="true"></i>trwa teraz';}
+      else if(!nextFound){li.classList.add('next');if(st)st.innerHTML='<i class="lamp" aria-hidden="true"></i>najbliższa';nextFound=true;}
     });
-    var tm=document.querySelector('[data-tomorrow]');if(!found&&tm)tm.hidden=false;
+    var tm=document.querySelector('[data-tomorrow]');if(!nextFound&&tm)tm.hidden=false;
   });
   document.querySelectorAll('[data-open]').forEach(function(el){
     var r=el.getAttribute('data-open').split('-'),a=toMin(r[0]),b=toMin(r[1]);
@@ -39,13 +38,31 @@ document.documentElement.lang='pl';
   }
 })();
 (function(){
-  var m;try{m=+new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Warsaw',month:'numeric'}).format(new Date());}catch(e){m=new Date().getMonth()+1;}
-  var items=[].slice.call(document.querySelectorAll('.year li[data-months]'));
-  function has(li,x){return li.getAttribute('data-months').split(',').map(Number).indexOf(x)>-1;}
-  var cur=items.filter(function(li){return has(li,m);})[0];
-  function flag(li,cls,txt){li.classList.add(cls);var b=li.querySelector('b');b.insertAdjacentHTML('beforeend',' <span class="flag"><i class="lamp" aria-hidden="true"></i>'+txt+'</span>');}
+  var items=[].slice.call(document.querySelectorAll('.year li[data-season]'));
+  if(!items.length)return;
+  var RZ=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+  var today;
+  try{var p=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Warsaw',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+    var g=function(t){return +p.find(function(x){return x.type===t;}).value;};today=Date.UTC(g('year'),g('month')-1,g('day'));}
+  catch(e){var d=new Date();today=Date.UTC(d.getFullYear(),d.getMonth(),d.getDate());}
+  var DAY=864e5;
+  function easter(y){var a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),gg=Math.floor((b-f+1)/3),
+    h=(19*a+b-d-gg+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),
+    mo=Math.floor((h+l-7*m+114)/31),da=((h+l-7*m+114)%31)+1;return Date.UTC(y,mo-1,da);}
+  function advent(y){var x=Date.UTC(y,11,25),dow=new Date(x).getUTCDay();return x-(dow===0?7:dow)*DAY-21*DAY;}
+  function ranges(y){return {
+    adwent:[advent(y),Date.UTC(y,11,24)],
+    post:[easter(y)-46*DAY,easter(y)-DAY],
+    maj:[Date.UTC(y,4,1),Date.UTC(y,4,31)],
+    czerwiec:[Date.UTC(y,5,1),Date.UTC(y,5,30)],
+    pazdziernik:[Date.UTC(y,9,1),Date.UTC(y,9,31)]};}
+  var y=new Date(today).getUTCFullYear(),r0=ranges(y),r1=ranges(y+1);
+  function flag(li,cls,txt){li.classList.add(cls);li.querySelector('b').insertAdjacentHTML('beforeend',' <span class="flag"><i class="lamp" aria-hidden="true"></i>'+txt+'</span>');}
+  var cur=items.filter(function(li){var r=r0[li.getAttribute('data-season')];return today>=r[0]&&today<=r[1];})[0];
   if(cur){flag(cur,'now','teraz');return;}
-  for(var k=1;k<=12;k++){var x=((m-1+k)%12)+1;var nx=items.filter(function(li){return has(li,x);})[0];if(nx){flag(nx,'soon',nx.getAttribute('data-start'));break;}}
+  var best=null,bestStart=Infinity;
+  items.forEach(function(li){var k=li.getAttribute('data-season');[r0[k],r1[k]].forEach(function(r){if(r[0]>today&&r[0]<bestStart){bestStart=r[0];best=li;}});});
+  if(best){var s=new Date(bestStart);flag(best,'soon','od '+s.getUTCDate()+' '+RZ[s.getUTCMonth()]);}
 })();
 (function(){
   document.querySelectorAll('.check input[type=checkbox]').forEach(function(cb){

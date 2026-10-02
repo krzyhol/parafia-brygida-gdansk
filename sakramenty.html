@@ -7,7 +7,7 @@
 <meta name="description" content="Chrzest, I Komunia, bierzmowanie i małżeństwo w parafii św. Brygidy: terminy, zapisy i dokumenty.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#8C3B2C">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 120'%3E%3Cpath d='M15,115 L15,58 A35,35 0 0 1 50,10 A35,35 0 0 1 85,58 L85,115 Z' fill='%238C3B2C'/%3E%3Cpath d='M32,115 L32,66 A22,22 0 0 1 50,36 A22,22 0 0 1 68,66 L68,115 Z' fill='%23F0C36B'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20100%20120%27%3E%3Cpath%20d%3D%27M15%2C115%20L15%2C58%20A35%2C35%200%200%201%2050%2C10%20A35%2C35%200%200%201%2085%2C58%20L85%2C115%20Z%27%20fill%3D%27%238C3B2C%27%2F%3E%3Cpath%20d%3D%27M32%2C115%20L32%2C66%20A22%2C22%200%200%201%2050%2C36%20A22%2C22%200%200%201%2068%2C66%20L68%2C115%20Z%27%20fill%3D%27%23F0C36B%27%2F%3E%3C%2Fsvg%3E">
 <link rel="preload" href="assets/fonts/Alegreya-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/AtkinsonHyperlegibleNext-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
@@ -25,13 +25,13 @@
     <a class="brand" href="index.html"><svg width="24" height="29" viewBox="0 0 100 120" aria-hidden="true"><path d="M15,115 L15,58 A35,35 0 0 1 50,10 A35,35 0 0 1 85,58 L85,115 Z" fill="none" stroke="currentColor" stroke-width="7"/></svg><span><b>Bazylika św. Brygidy</b><small>Parafia rzymskokatolicka · Gdańsk</small></span></a>
     <nav class="primary" aria-label="Główna"><a href="msze-i-nabozenstwa.html">Msze i nabożeństwa</a><a href="sakramenty.html" aria-current="page">Sakramenty</a><a href="wspolnota.html">Wspólnota</a><a href="zwiedzanie.html">Zwiedzanie</a><a href="aktualnosci.html">Aktualności</a><a href="kontakt.html">Kontakt</a></nav>
     <a class="give" href="wesprzyj-nas.html">Wesprzyj nas</a>
-    <button class="menu-btn" aria-expanded="false" aria-controls="mnav">Menu</button>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mnav">Menu</button>
   </div>
   <nav class="mnav" id="mnav" aria-label="Główna (mobilna)"><div class="wrap"><ul>
     <li><a href="msze-i-nabozenstwa.html">Msze i nabożeństwa</a></li><li><a href="sakramenty.html" aria-current="page">Sakramenty</a></li><li><a href="wspolnota.html">Wspólnota</a></li><li><a href="zwiedzanie.html">Zwiedzanie</a></li><li><a href="aktualnosci.html">Aktualności</a></li><li><a href="kontakt.html">Kontakt</a></li><li><a href="wesprzyj-nas.html">Wesprzyj nas</a></li>
   </ul></div></nav>
 </header>
-<main id="tresc" class="wrap">
+<main id="tresc" tabindex="-1" class="wrap">
   <p class="crumbs"><a href="index.html">Strona główna</a> / Sakramenty</p>
   <div class="page-head">
     <h1>Sakramenty</h1>
@@ -60,7 +60,7 @@
         </dl>
         <p>Chrzest włącza dziecko do wspólnoty Kościoła i otwiera drogę do pozostałych sakramentów. Termin i katechezę ustala się w biurze parafialnym.</p>
         <div class="bring">
-          <div class="bring-head"><h3>Co przynieść do biura</h3><button class="print" data-print>Drukuj listę</button></div>
+          <div class="bring-head"><h3>Co przynieść do biura</h3><button class="print" type="button" data-print>Drukuj listę</button></div>
           <ul class="check"><li><label><input type="checkbox" id="chrzest-1"><span>Odpis aktu urodzenia dziecka</span></label></li><li><label><input type="checkbox" id="chrzest-2"><span>Wyciąg z aktu ślubu kościelnego rodziców</span></label></li><li><label><input type="checkbox" id="chrzest-3"><span>Dane chrzestnych: imiona, nazwiska, wiek, adres</span></label></li><li><label><input type="checkbox" id="chrzest-4"><span>Zaświadczenia chrzestnych z ich parafii, że praktykują wiarę</span></label></li><li><label><input type="checkbox" id="chrzest-5"><span>Pozwolenie z parafii zamieszkania <span class="due">jeśli mieszkacie poza parafią</span></span></label></li></ul>
         </div>
       </section>
@@ -92,10 +92,10 @@
           <li><div><b>Część III</b>Życie sakramentalne i życie w Chrystusie</div></li>
         </ol>
         <div class="bring">
-          <div class="bring-head"><h3>Dokumenty kandydata</h3><button class="print" data-print>Drukuj listę</button></div>
+          <div class="bring-head"><h3>Dokumenty kandydata</h3><button class="print" type="button" data-print>Drukuj listę</button></div>
           <ul class="check"><li><label><input type="checkbox" id="bierzm-1"><span>Metryka chrztu — tylko jeśli chrzest był poza naszą parafią <span class="due">do końca XI</span></span></label></li><li><label><input type="checkbox" id="bierzm-2"><span>Deklaracja kandydata — do odebrania w zakrystii lub w biurze</span></label></li><li><label><input type="checkbox" id="bierzm-3"><span>Zaświadczenie o uczestnictwie w lekcjach religii — wystawia katecheta w szkole</span></label></li><li><label><input type="checkbox" id="bierzm-4"><span>Imię patrona: święty lub błogosławiony <span class="due">do końca XI</span></span></label></li><li><label><input type="checkbox" id="bierzm-5"><span>Dane świadka: osoba bierzmowana i praktykująca, najlepiej chrzestny; nie może nim być rodzic <span class="due">do końca XI</span></span></label></li><li><label><input type="checkbox" id="bierzm-6"><span>Zgoda proboszcza parafii zamieszkania <span class="due">jeśli mieszkasz w innej parafii</span></span></label></li></ul>
         </div>
-        <p style="margin-top:18px"><a class="link" href="#">Standardy ochrony małoletnich w parafii</a></p>
+        <p class="after-list"><a class="link" href="https://www.brygida.gdansk.pl/?modul=strony&amp;strona=96">Standardy ochrony małoletnich w parafii</a></p>
       </section>
 
       <section id="malzenstwo">
@@ -107,7 +107,7 @@
           <li><div><b>Przed ślubem</b>Dostarczcie pozostałe dokumenty i zaświadczenia.</div></li>
         </ol>
         <div class="bring">
-          <div class="bring-head"><h3>Dokumenty narzeczonych</h3><button class="print" data-print>Drukuj listę</button></div>
+          <div class="bring-head"><h3>Dokumenty narzeczonych</h3><button class="print" type="button" data-print>Drukuj listę</button></div>
           <p class="check-sub">Na protokół</p>
           <ul class="check"><li><label><input type="checkbox" id="slub-a-1"><span>Dowody osobiste obojga narzeczonych</span></label></li><li><label><input type="checkbox" id="slub-a-2"><span>Świadectwa chrztu</span></label></li><li><label><input type="checkbox" id="slub-a-3"><span>Świadectwa katechizacji szkolnej</span></label></li></ul>
           <p class="check-sub">Przed ślubem</p>
@@ -126,7 +126,7 @@
             </tbody>
           </table>
         </div>
-        <p style="margin-top:16px">ul. Profesorska 17, 80-856 Gdańsk · <a class="link" href="tel:+48721171133">721 171 133</a> · <a class="link" href="mailto:brygidaszwedzka@gmail.com">brygidaszwedzka@gmail.com</a></p>
+        <p class="after-list">ul. Profesorska 17, 80-856 Gdańsk · <a class="link" href="tel:+48721171133">721 171 133</a> · <a class="link" href="mailto:brygidaszwedzka@gmail.com">brygidaszwedzka@gmail.com</a></p>
       </section>
 
     </div>
@@ -144,7 +144,7 @@
       </div>
       <div>
         <h2>Biuro parafialne</h2>
-        <dl class="hours num-hours">
+        <dl class="hours">
           <dt>wtorek</dt><dd>16.00–17.00</dd>
           <dt>środa</dt><dd>16.00–17.00</dd>
           <dt>czwartek</dt><dd>19.00–19.30</dd>
@@ -159,9 +159,9 @@
       </div>
       <div>
         <h2>Dokumenty</h2>
-        <p><a href="#">Standardy ochrony małoletnich</a></p>
-        <p><a href="#">Ochrona danych osobowych</a></p>
-        <p><a href="#">Polityka prywatności</a></p>
+        <p><a href="https://www.brygida.gdansk.pl/?modul=strony&amp;strona=96">Standardy ochrony małoletnich</a></p>
+        <p><a href="https://www.brygida.gdansk.pl/?modul=strony&amp;strona=75">Ochrona danych osobowych</a></p>
+        <p><a href="https://www.brygida.gdansk.pl/?modul=strony&amp;strona=76">Polityka prywatności</a></p>
       </div>
     </div>
     <div class="foot-bottom">

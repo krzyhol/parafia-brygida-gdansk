@@ -7,7 +7,7 @@
 <meta name="description" content="Konto parafii, BLIK, darczyńcy Bursztynowego Ołtarza i konserwacja zabytkowej bazyliki.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#8C3B2C">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 120'%3E%3Cpath d='M15,115 L15,58 A35,35 0 0 1 50,10 A35,35 0 0 1 85,58 L85,115 Z' fill='%238C3B2C'/%3E%3Cpath d='M32,115 L32,66 A22,22 0 0 1 50,36 A22,22 0 0 1 68,66 L68,115 Z' fill='%23F0C36B'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20100%20120%27%3E%3Cpath%20d%3D%27M15%2C115%20L15%2C58%20A35%2C35%200%200%201%2050%2C10%20A35%2C35%200%200%201%2085%2C58%20L85%2C115%20Z%27%20fill%3D%27%238C3B2C%27%2F%3E%3Cpath%20d%3D%27M32%2C115%20L32%2C66%20A22%2C22%200%200%201%2050%2C36%20A22%2C22%200%200%201%2068%2C66%20L68%2C115%20Z%27%20fill%3D%27%23F0C36B%27%2F%3E%3C%2Fsvg%3E">
 <link rel="preload" href="assets/fonts/Alegreya-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/AtkinsonHyperlegibleNext-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
@@ -25,13 +25,13 @@
     <a class="brand" href="index.html"><svg width="24" height="29" viewBox="0 0 100 120" aria-hidden="true"><path d="M15,115 L15,58 A35,35 0 0 1 50,10 A35,35 0 0 1 85,58 L85,115 Z" fill="none" stroke="currentColor" stroke-width="7"/></svg><span><b>Bazylika św. Brygidy</b><small>Parafia rzymskokatolicka · Gdańsk</small></span></a>
     <nav class="primary" aria-label="Główna"><a href="msze-i-nabozenstwa.html">Msze i nabożeństwa</a><a href="sakramenty.html">Sakramenty</a><a href="wspolnota.html">Wspólnota</a><a href="zwiedzanie.html">Zwiedzanie</a><a href="aktualnosci.html">Aktualności</a><a href="kontakt.html">Kontakt</a></nav>
     <a class="give" href="wesprzyj-nas.html" aria-current="page">Wesprzyj nas</a>
-    <button class="menu-btn" aria-expanded="false" aria-controls="mnav">Menu</button>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mnav">Menu</button>
   </div>
   <nav class="mnav" id="mnav" aria-label="Główna (mobilna)"><div class="wrap"><ul>
     <li><a href="msze-i-nabozenstwa.html">Msze i nabożeństwa</a></li><li><a href="sakramenty.html">Sakramenty</a></li><li><a href="wspolnota.html">Wspólnota</a></li><li><a href="zwiedzanie.html">Zwiedzanie</a></li><li><a href="aktualnosci.html">Aktualności</a></li><li><a href="kontakt.html">Kontakt</a></li><li><a href="wesprzyj-nas.html" aria-current="page">Wesprzyj nas</a></li>
   </ul></div></nav>
 </header>
-<main id="tresc" class="wrap">
+<main id="tresc" tabindex="-1" class="wrap">
   <p class="crumbs"><a href="index.html">Strona główna</a> / Wesprzyj nas</p>
   <div class="page-head">
     <h1>Wesprzyj nas</h1>
@@ -45,11 +45,11 @@
         <h2>Przelew i BLIK</h2>
         <div class="acct"><span class="lbl">Konto parafii</span><code>37 1240 2920 1111 0010 2775 1531</code><button class="copy" type="button" data-copy="37124029201111001027751531">Kopiuj</button></div>
         <div class="acct"><span class="lbl">BLIK na numer telefonu</span><code>721 171 133</code><button class="copy" type="button" data-copy="721171133">Kopiuj</button></div>
-        <dl class="facts" style="margin-top:8px">
+        <dl class="facts tight">
           <dt>Odbiorca</dt><dd>Parafia Rzymskokatolicka pw. św. Brygidy, ul. Profesorska 17, 80-856 Gdańsk</dd>
           <dt>Tytuł</dt><dd>na cele kultu religijnego; dopisz cel, np. „Bursztynowy Ołtarz”</dd>
         </dl>
-        <h3>Z zagranicy <span class="en" lang="en" style="font-family:var(--sans);font-size:16px;font-weight:400;color:var(--ink-2)">· From abroad</span></h3>
+        <h3>Z zagranicy <span class="en" lang="en">· From abroad</span></h3>
         <div class="acct"><span class="lbl">USD</span><code>PL39 1240 5400 1787 0010 3550 0378</code><button class="copy" type="button" data-copy="PL39124054001787001035500378">Kopiuj</button></div>
         <div class="acct"><span class="lbl">EUR</span><code>PL72 1240 2920 1978 0010 1936 3999</code><button class="copy" type="button" data-copy="PL72124029201978001019363999">Kopiuj</button></div>
         <p class="tbd"><b>Do uzupełnienia:</b> kod SWIFT/BIC dla przelewów zagranicznych.</p>
@@ -58,7 +58,7 @@
       <section id="oltarz">
         <h2>Bursztynowy Ołtarz Ojczyzny <span class="chip doing">III etap</span></h2>
         <figure>
-          <img src="assets/img/detal-solidarnosc.jpg" width="479" height="295" loading="lazy" alt="Detal nastawy: bryła jasnego i koniakowego bursztynu z napisem Solidarność" style="max-width:420px">
+          <img src="assets/img/detal-solidarnosc.jpg" width="479" height="295" loading="lazy" alt="Detal nastawy: bryła jasnego i koniakowego bursztynu z napisem Solidarność" class="narrow">
           <figcaption>Detal nastawy z napisem „Solidarność”.</figcaption>
         </figure>
         <p>Trwa ostatni etap prac. W nastawie jest już 10 złoconych winorośli z listkami z bursztynu i srebra, na których wygrawerowano imiona i nazwiska darczyńców z rodzinami.</p>
@@ -66,9 +66,9 @@
         <ol class="steps">
           <li><div><b>Wybierz element</b>O dostępne projekty i ceny zapytaj w biurze parafialnym albo w zakrystii.</div></li>
           <li><div><b>Złóż ofiarę</b>Przelewem z dopiskiem „Bursztynowy Ołtarz” albo na miejscu.</div></li>
-          <li><div><b>Podaj napis</b>Imię i nazwisko osoby, małżeństwa lub rodziny, które zostanie wygrawerowane na srebrno-złotym listku.</div></li>
+          <li><div><b>Podaj napis</b>Imiona i nazwiska osoby, małżeństwa lub rodziny zostaną wygrawerowane na srebrno-złotym listku.</div></li>
         </ol>
-        <p style="margin-top:16px">Parafia dziękuje także za dary w złocie, srebrze i bursztynie. <a class="link" href="zwiedzanie.html#oltarz">Historia ołtarza</a></p>
+        <p class="after-list">Parafia dziękuje także za dary w złocie, srebrze i bursztynie. <a class="link" href="zwiedzanie.html#oltarz">Historia ołtarza</a></p>
       </section>
 
       <section id="zabytek">
@@ -104,7 +104,7 @@
       </div>
       <div>
         <h2>Biuro parafialne</h2>
-        <dl class="hours num-hours">
+        <dl class="hours">
           <dt>wtorek</dt><dd>16.00–17.00</dd>
           <dt>środa</dt><dd>16.00–17.00</dd>
           <dt>czwartek</dt><dd>19.00–19.30</dd>
@@ -119,9 +119,9 @@
       </div>
       <div>
         <h2>Dokumenty</h2>
-        <p><a href="#">Standardy ochrony małoletnich</a></p>
-        <p><a href="#">Ochrona danych osobowych</a></p>
-        <p><a href="#">Polityka prywatności</a></p>
+        <p><a href="https://www.brygida.gdansk.pl/?modul=strony&amp;strona=96">Standardy ochrony małoletnich</a></p>
+        <p><a href="https://www.brygida.gdansk.pl/?modul=strony&amp;strona=75">Ochrona danych osobowych</a></p>
+        <p><a href="https://www.brygida.gdansk.pl/?modul=strony&amp;strona=76">Polityka prywatności</a></p>
       </div>
     </div>
     <div class="foot-bottom">
