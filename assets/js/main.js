@@ -55,9 +55,32 @@
     return (dow===0?NIEDZIELA:POWSZEDNI).map(function(h){return [h,(n[h]||[]).join('; ')];});
   }
 
-  // Menu mobilne
+  // Menu mobilne: zamyka je Esc, kliknięcie poza menu i wybór linku (także kotwicy na tej samej stronie)
   var btn=document.querySelector('.menu-btn'),nav=document.getElementById('mnav');
-  if(btn&&nav){btn.addEventListener('click',function(){var o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o?'true':'false');});}
+  if(btn&&nav){
+    var setMenu=function(o){nav.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');};
+    btn.addEventListener('click',function(){setMenu(!nav.classList.contains('open'));});
+    nav.addEventListener('click',function(e){if(e.target.closest('a'))setMenu(false);});
+    document.addEventListener('click',function(e){if(nav.classList.contains('open')&&!nav.contains(e.target)&&!btn.contains(e.target))setMenu(false);});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('open')){setMenu(false);btn.focus();}});
+  }
+
+  // Wysokość paska dnia: na telefonie nagłówek przykleja się bez niego (style.css, --dayline-h)
+  var dl=document.querySelector('.dayline');
+  if(dl){
+    var dlH=function(){document.documentElement.style.setProperty('--dayline-h',dl.offsetHeight+'px');};
+    dlH();if('ResizeObserver' in window)new ResizeObserver(dlH).observe(dl);
+  }
+
+  // Sekcje stopki: na telefonie zwinięte, na szerszym ekranie zawsze otwarte
+  (function(){
+    var secs=$$('.foot-sec'),mq=window.matchMedia&&matchMedia('(max-width:600px)');
+    if(!secs.length||!mq)return;
+    function sync(){secs.forEach(function(d){d.open=!mq.matches;d.querySelector('summary').tabIndex=mq.matches?0:-1;});}
+    secs.forEach(function(d){d.querySelector('summary').addEventListener('click',function(e){if(!mq.matches)e.preventDefault();});});
+    sync();
+    if(mq.addEventListener)mq.addEventListener('change',sync);else if(mq.addListener)mq.addListener(sync);
+  })();
 
   // Dzisiejsza data, Msze dziś i jutro
   (function(){
