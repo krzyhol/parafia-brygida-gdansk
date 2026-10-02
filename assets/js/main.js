@@ -132,19 +132,26 @@
     var tm=document.querySelector('[data-tomorrow]');if(!nextFound&&tm)tm.hidden=false;
   });
 
-  // Najbliższe dni: dziś / jutro / za n dni, minione wyszarzone
+  // Najbliższe dni i daty wydarzeń: dziś / jutro / za n dni, minione wyszarzone.
+  // [data-days] li — karty z <time datetime>; [data-termin="RRRR-MM-DD"] — sam napis, np. na stronie wydarzenia.
   (function(){
-    function utc(s){var p=s.split('-');return Date.UTC(+p[0],p[1]-1,+p[2]);}
-    var day=warsaw.today;
+    function ile(dt){var p=dt.split('-');return Math.round((Date.UTC(+p[0],p[1]-1,+p[2])-warsaw.today)/DAY);}
+    function opisz(el,n){
+      if(n<0)el.textContent='minęło';
+      else if(n===0)el.innerHTML='<i class="lamp" aria-hidden="true"></i>dziś';
+      else if(n===1)el.textContent='jutro';
+      else if(n<7)el.textContent='za '+n+' dni';
+    }
     $$('[data-days] li').forEach(function(li){
       var t=li.querySelector('time'),dt=t&&t.getAttribute('datetime'),w=document.createElement('span');
-      w.className='when';li.insertBefore(w,li.firstChild);
+      w.className='when';li.insertBefore(w,t||li.firstChild);
       if(!dt||dt.length!==10)return;
-      var n=Math.round((utc(dt)-day)/864e5);
-      if(n<0){li.classList.add('past');w.textContent='minęło';}
-      else if(n===0){li.classList.add('soon');w.innerHTML='<i class="lamp" aria-hidden="true"></i>dziś';}
-      else if(n===1){li.classList.add('soon');w.textContent='jutro';}
-      else if(n<7){w.textContent='za '+n+' dni';}
+      var n=ile(dt);opisz(w,n);
+      if(n<0)li.classList.add('past');else if(n<2)li.classList.add('soon');
+    });
+    $$('[data-termin]').forEach(function(el){
+      var dt=el.getAttribute('data-termin');if(dt.length!==10)return;
+      var n=ile(dt);opisz(el,n);el.classList.toggle('past',n<0);
     });
   })();
 
