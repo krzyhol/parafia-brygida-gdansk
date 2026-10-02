@@ -111,6 +111,15 @@
     document.head.appendChild(s);
   })();
 
+  // Sentencja dnia: wspólna lista dla wszystkich parafii (assets/data/sentencje.json, Biblia Tysiąclecia),
+  // co dzień kolejna wg daty w Warszawie — tego samego dnia wszędzie ta sama
+  $$('[data-sentencja]').forEach(function(box){
+    fetch('assets/data/sentencje.json').then(function(r){return r.json();}).then(function(l){
+      var s=l[Math.floor(warsaw.today/DAY)%l.length];
+      box.querySelector('p').textContent='„'+s.t+'”';box.querySelector('cite').textContent=s.z;
+    }).catch(function(){});
+  });
+
   // Dzisiejsze Msze: trwa teraz / najbliższa / minione
   $$('[data-live-times]').forEach(function(list){
     var nextFound=false;
