@@ -4,7 +4,7 @@ Prototyp nowej strony parafii przygotowany jako pilotaż zamiennika dla platform
 
 ## Strony
 
-- `index.html` — strona główna: dzisiejsze Msze (najbliższa liczona na żywo wg czasu warszawskiego), ogłoszenia, najbliższe wydarzenia, Bursztynowy Ołtarz
+- `index.html` — strona główna: w centrum aktualności (najbliższe dni i ogłoszenia), z boku widżety „Msze święte dziś” (najbliższa liczona na żywo wg czasu warszawskiego), biuro i zwiedzanie dziś; niżej pokaz zdjęć Bursztynowego Ołtarza
 - `msze-i-nabozenstwa.html` — porządek Mszy, nabożeństwa w tygodniu i w roku liturgicznym, intencje, spowiedź także w językach obcych
 - `sakramenty.html` — chrzest, I Komunia, bierzmowanie, małżeństwo; listy dokumentów do odhaczania i druku
 - `wspolnota.html` — duszpasterze, grupy parafialne, historia parafii
@@ -17,9 +17,9 @@ Prototyp nowej strony parafii przygotowany jako pilotaż zamiennika dla platform
 ## Struktura
 
 - `assets/css/style.css` — wspólne style (paleta: kamień, cegła, bursztyn; jasny i ciemny motyw)
-- `assets/js/main.js` — menu mobilne, „najbliższa Msza”, status biura, spis treści, okres liturgiczny, listy dokumentów, kopiowanie numerów kont
+- `assets/js/main.js` — menu mobilne, „najbliższa Msza”, „dziś / jutro / za n dni” w najbliższych dniach, pokaz zdjęć ołtarza, status biura i zwiedzania, spis treści, okres liturgiczny, listy dokumentów, kopiowanie numerów kont
 - `assets/fonts/` — Alegreya i Atkinson Hyperlegible Next (licencja SIL Open Font License), tylko znaki łacińskie z polskimi
-- `assets/img/` — zdjęcia Bursztynowego Ołtarza; zdjęcie prezbiterium: fot. Wojciech Chomka
+- `assets/img/` — zdjęcia Bursztynowego Ołtarza i bazyliki; zdjęcie prezbiterium: fot. Wojciech Chomka, źródła pozostałych do potwierdzenia
 - `_partials/` — wspólne fragmenty stron: część `<head>`, nagłówek z menu, pasek dnia, stopka
 - `build.py` — wstawia fragmenty z `_partials/` do wszystkich stron
 
