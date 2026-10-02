@@ -20,6 +20,18 @@ Prototyp nowej strony parafii przygotowany jako pilotaż zamiennika dla platform
 - `assets/js/main.js` — menu mobilne, „najbliższa Msza”, status biura, spis treści, okres liturgiczny, listy dokumentów, kopiowanie numerów kont
 - `assets/fonts/` — Alegreya i Atkinson Hyperlegible Next (licencja SIL Open Font License), tylko znaki łacińskie z polskimi
 - `assets/img/` — zdjęcia Bursztynowego Ołtarza; zdjęcie prezbiterium: fot. Wojciech Chomka
+- `_partials/` — wspólne fragmenty stron: część `<head>`, nagłówek z menu, pasek dnia, stopka
+- `build.py` — wstawia fragmenty z `_partials/` do wszystkich stron
+
+## Nagłówek, menu i stopka
+
+Wspólne fragmenty są w `_partials/`. W stronach oznaczają je komentarze `<!-- include: … -->` i `<!-- /include -->` — tego, co jest między nimi, nie edytuje się ręcznie, bo skrypt to nadpisze. Po zmianie fragmentu:
+
+```bash
+python3 build.py
+```
+
+`python3 build.py --check` tylko sprawdza, czy strony są aktualne. Skrypt sam dodaje `aria-current` w menu, ścieżki absolutne w `404.html`, a pasek dnia pomija na stronach z `<!-- include: header bez-paska -->` (strona główna).
 
 ## Podgląd lokalny
 
