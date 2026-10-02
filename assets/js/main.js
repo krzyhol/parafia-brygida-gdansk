@@ -32,13 +32,95 @@
     var tm=document.querySelector('[data-tomorrow]');if(!nextFound&&tm)tm.hidden=false;
   });
 
-  // Status biura
-  $$('[data-open]').forEach(function(el){
-    var r=el.getAttribute('data-open').split('-'),a=toMin(r[0]),b=toMin(r[1]);
-    if(now>=a&&now<b){el.textContent='otwarte teraz';el.classList.add('open');}
-    else if(now<a){el.textContent='otwarcie o '+r[0].replace(':','.');}
-    else{el.textContent='dziś już zamknięte';}
+  // Najbliższe dni: dziś / jutro / za n dni, minione wyszarzone.
+  // Makieta ma ustalony dzień (data-dzien), docelowo liczy się od dzisiejszej daty.
+  (function(){
+    function utc(s){var p=s.split('-');return Date.UTC(+p[0],p[1]-1,+p[2]);}
+    var fixed=document.querySelector('[data-dzien]'),day=fixed?utc(fixed.getAttribute('data-dzien')):warsaw.today;
+    $$('[data-days] li').forEach(function(li){
+      var t=li.querySelector('time'),dt=t&&t.getAttribute('datetime'),w=document.createElement('span');
+      w.className='when';li.insertBefore(w,li.firstChild);
+      if(!dt||dt.length!==10)return;
+      var n=Math.round((utc(dt)-day)/864e5);
+      if(n<0){li.classList.add('past');w.textContent='minęło';}
+      else if(n===0){li.classList.add('soon');w.innerHTML='<i class="lamp" aria-hidden="true"></i>dziś';}
+      else if(n===1){li.classList.add('soon');w.textContent='jutro';}
+      else if(n<7){w.textContent='za '+n+' dni';}
+    });
+  })();
+
+  // Pokaz zdjęć ołtarza: zmiana co kilka sekund, pauza przyciskiem, najechaniem i fokusem klawiatury.
+  // Przy „ogranicz ruch” nie przewija się sam. Kolejny slajd włącza koniec animacji paska postępu.
+  $$('[data-tour]').forEach(function(tour){
+    var slides=$$('.slide',tour),nav=tour.querySelector('[data-tour-nav]'),stage=tour.querySelector('.stage');
+    if(slides.length<2||!nav)return;
+    var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,cur=-1,thumbs=[];
+    var ICON={pause:'<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 2h3v10H3zM8 2h3v10H8z" fill="currentColor"/></svg>',
+      play:'<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M4 2l8 5-8 5z" fill="currentColor"/></svg>'};
+    slides.forEach(function(s,i){
+      var title=s.querySelector('figcaption b').textContent,b=document.createElement('button');
+      s.setAttribute('role','group');s.setAttribute('aria-roledescription','zdjęcie');s.setAttribute('aria-label',(i+1)+' z '+slides.length);
+      b.type='button';b.className='thumb';b.setAttribute('aria-label','Zdjęcie '+(i+1)+' z '+slides.length+': '+title);
+      b.innerHTML='<img alt="" loading="lazy" src="'+s.querySelector('img').getAttribute('src')+'"><i class="bar"></i>';
+      b.addEventListener('click',function(){show(i);});
+      nav.appendChild(b);thumbs.push(b);
+    });
+    var play=document.createElement('button');play.type='button';play.className='tour-play';
+    play.addEventListener('click',function(){setPlaying(!tour.classList.contains('playing'));});
+    if(!still)nav.appendChild(play);
+    function setPlaying(on){
+      tour.classList.toggle('playing',on);
+      play.innerHTML=on?ICON.pause:ICON.play;
+      play.setAttribute('aria-label',on?'Zatrzymaj pokaz zdjęć':'Wznów pokaz zdjęć');play.title=play.getAttribute('aria-label');
+      stage.setAttribute('aria-live',on?'off':'polite');
+    }
+    function show(i){
+      i=(i+slides.length)%slides.length;if(i===cur)return;
+      if(cur>=0){var old=slides[cur];old.classList.remove('on');old.classList.add('was');old.setAttribute('aria-hidden','true');
+        thumbs[cur].removeAttribute('aria-current');setTimeout(function(){if(!old.classList.contains('on'))old.classList.remove('was');},1000);}
+      cur=i;slides[i].classList.remove('was');slides[i].classList.add('on');slides[i].removeAttribute('aria-hidden');
+      thumbs[i].setAttribute('aria-current','true');
+    }
+    slides.forEach(function(s){s.setAttribute('aria-hidden','true');});
+    tour.classList.add('is-ready');nav.hidden=false;
+    show(0);setPlaying(!still);
+    nav.addEventListener('animationend',function(e){if(e.target.classList.contains('bar'))show(cur+1);});
+    nav.addEventListener('keydown',function(e){
+      var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;
+      if(d&&thumbs.indexOf(document.activeElement)>=0){e.preventDefault();show(cur+d);thumbs[cur].focus();}
+    });
+    var x0=null;
+    stage.addEventListener('pointerdown',function(e){x0=e.pointerType==='mouse'?null:e.clientX;});
+    stage.addEventListener('pointerup',function(e){if(x0===null)return;var dx=e.clientX-x0;x0=null;if(Math.abs(dx)>40)show(cur+(dx<0?1:-1));});
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){tour.classList.toggle('offscreen',!es[0].isIntersecting);},{threshold:.3}).observe(tour);
+    }
   });
+
+  // Godziny biura i zwiedzania wg dnia tygodnia: data-hours="2=16:00-17:00 3=…" (0 = niedziela).
+  // [data-today] dostaje dzisiejsze godziny albo „zamknięte”, .status — stan i najbliższe otwarcie.
+  (function(){
+    var DNI=['w niedzielę','w poniedziałek','we wtorek','w środę','w czwartek','w piątek','w sobotę'],
+      RZ=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'],dow=new Date(warsaw.today).getUTCDay();
+    function fmt(r){return r.replace(/:/g,'.').replace('-','–');}
+    $$('[data-hours]').forEach(function(box){
+      var h={},out=box.querySelector('[data-today]'),st=box.querySelector('.status');
+      box.getAttribute('data-hours').split(/\s+/).forEach(function(p){var kv=p.split('=');h[kv[0]]=kv[1];});
+      function next(){
+        for(var i=1;i<=7;i++){var d=(dow+i)%7;if(h[d]){var dt=new Date(warsaw.today+i*864e5);
+          return 'najbliżej '+DNI[d]+' '+dt.getUTCDate()+' '+RZ[dt.getUTCMonth()]+', '+fmt(h[d]);}}
+        return '';
+      }
+      var r=h[dow];
+      if(!r){if(out)out.textContent='zamknięte';if(st)st.textContent=next();return;}
+      if(out)out.textContent=fmt(r);
+      if(!st)return;
+      var a=toMin(r.split('-')[0]),b=toMin(r.split('-')[1]);
+      if(now>=a&&now<b){st.textContent='otwarte teraz';st.classList.add('open');}
+      else if(now<a){st.textContent='otwarcie o '+fmt(r.split('-')[0]);}
+      else{st.textContent='dziś już zamknięte, '+next();}
+    });
+  })();
 
   // Etykiety kolumn dla tabel składanych na wąskim ekranie
   $$('table.stack').forEach(function(t){
