@@ -47,7 +47,7 @@ a[href^="http"]:not(.index a):not(.btn)::after{content:" \2197";font-size:.85em}
 .muted{font-weight:400;color:var(--ink-2)}
 .defs{position:absolute}
 
-section[id],.side-box h2[id]{scroll-margin-top:104px}
+section[id],.side-box h2[id],.content h3[id]{scroll-margin-top:104px}
 #tresc{scroll-margin-top:124px}
 #tresc:focus{outline:none}
 
@@ -423,6 +423,13 @@ table.plain{width:100%;border-collapse:collapse;font-size:16px}
 .people .role{grid-column:1;color:var(--ink-2);font-size:15.5px}
 .people .since{grid-row:1/span 2;grid-column:2;align-self:center;font:700 18px/1.2 var(--serif);color:var(--brick);white-space:nowrap}
 .people .bio{grid-column:1/-1;margin:8px 0 0;font-size:15.5px;color:var(--ink-2)}
+/* Zdjęcie ma tylko proboszcz; wikariusze proszą o prywatność (bez zdjęć i telefonów) */
+.people li.with-photo{grid-template-columns:120px minmax(0,1fr) auto;column-gap:22px}
+.people .portrait{grid-row:1/span 3;grid-column:1;width:120px;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:3px}
+.people li.with-photo>:is(b,.role){grid-column:2}
+.people li.with-photo>.since{grid-column:3}
+.people li.with-photo>.bio{grid-column:2/-1;align-self:start}
+.content h3+.people{margin-top:4px}
 .group{padding:20px 0;border-top:1px solid var(--rule)}
 .group h3{margin:0 0 4px}
 .group .when{margin:0 0 8px;font:700 18px/1.35 var(--serif);color:var(--brick)}
@@ -464,6 +471,9 @@ table.plain{width:100%;border-collapse:collapse;font-size:16px}
   .timeline li,.gal-year{grid-template-columns:1fr;gap:2px}
   .people li{grid-template-columns:1fr}
   .people .since{grid-row:auto;grid-column:1}
+  .people li.with-photo{grid-template-columns:88px minmax(0,1fr);column-gap:16px}
+  .people li.with-photo>:is(b,.role,.since,.bio){grid-column:2}
+  .people .portrait{width:88px;grid-row:1/span 4}
   .acct{grid-template-columns:1fr}
   .acct .copy{justify-self:start}
   table.stack thead{position:absolute;left:-9999px}
