@@ -16,9 +16,86 @@
   })();
   var now=warsaw.min;
 
+  var DAY=864e5,RZ=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'],
+    DNI=['niedziela','poniedziałek','wtorek','środa','czwartek','piątek','sobota'],
+    W_DNI=['w niedzielę','w poniedziałek','we wtorek','w środę','w czwartek','w piątek','w sobotę'];
+  function data(t){var d=new Date(t);return d.getUTCDate()+' '+RZ[d.getUTCMonth()];}
+  function iso(t){return new Date(t).toISOString().slice(0,10);}
+  function hm(s){return s.replace(/^0/,'').replace(':','.');}
+  function easter(y){var a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),
+    h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),
+    mo=Math.floor((h+l-7*m+114)/31),da=((h+l-7*m+114)%31)+1;return Date.UTC(y,mo-1,da);}
+  function advent(y){var x=Date.UTC(y,11,25),dow=new Date(x).getUTCDay();return x-(dow===0?7:dow)*DAY-21*DAY;}
+
+  // Porządek Mszy (jak na stronie Msze i nabożeństwa) i dopiski na dany dzień.
+  // W święta poniżej porządek jest inny i podaje go ogłoszenie, więc mszeDnia zwraca null.
+  var NIEDZIELA=['07:00','09:00','11:00','12:30','18:30'],POWSZEDNI=['07:00','15:00','18:30'],
+    SWIETA=['1-1','1-6','8-15','11-1','12-24','12-25','12-26'],    // miesiąc-dzień
+    SWIETA_RUCHOME=[-3,-2,-1,0,1,60];                               // dni od Wielkanocy: Triduum, Wielkanoc, poniedziałek, Boże Ciało
+  function mszeDnia(t){
+    var d=new Date(t),y=d.getUTCFullYear(),m=d.getUTCMonth(),dow=d.getUTCDay(),nr=Math.ceil(d.getUTCDate()/7),e=easter(y),
+      post=t>=e-46*DAY&&t<e,adw=t>=advent(y)&&t<Date.UTC(y,11,24),n={};
+    if(SWIETA.indexOf((m+1)+'-'+d.getUTCDate())>=0||SWIETA_RUCHOME.some(function(k){return t===e+k*DAY;}))return null;
+    function note(h,s){(n[h]=n[h]||[]).push(s);}
+    if(dow===0){
+      note('07:00','transmisja w Radiu Plus Gdańsk');note('09:00','dla dzieci');note('11:00','suma');
+      if(nr===1||nr===3)note('12:30','po Mszy chrzty');
+      if(post)note('18:30','wcześniej, o 17.30, Gorzkie Żale');
+    }else{
+      if(adw)note('07:00','roraty');
+      if(dow===6&&nr===1)note('07:00','po Mszy adoracja z różańcem i Męski Różaniec');
+      note('15:00','z Koronką do Miłosierdzia Bożego');
+      if(post&&dow===5){note('07:00','po Mszy Droga Krzyżowa');note('15:00','po Mszy Droga Krzyżowa');note('18:30','wcześniej, o 18.00, Droga Krzyżowa');}
+    }
+    var wiecz=[dow===2&&'litania do św. Brygidy',dow===3&&'nowenna do Matki Bożej Nieustającej Pomocy',
+      dow===5&&nr===1&&'litania do Najświętszego Serca Pana Jezusa',
+      m===4&&'nabożeństwo majowe',m===5&&'nabożeństwo czerwcowe',m===9&&'różaniec'].filter(Boolean);
+    if(wiecz.length)note('18:30','po Mszy '+wiecz.join(', '));
+    return (dow===0?NIEDZIELA:POWSZEDNI).map(function(h){return [h,(n[h]||[]).join('; ')];});
+  }
+
   // Menu mobilne
   var btn=document.querySelector('.menu-btn'),nav=document.getElementById('mnav');
   if(btn&&nav){btn.addEventListener('click',function(){var o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o?'true':'false');});}
+
+  // Dzisiejsza data, Msze dziś i jutro, link do liturgii dnia.
+  // Elementy z data-for="RRRR-MM-DD" (wspomnienie, czytania, kolor szat) są tylko na ten dzień — w inne dni znikają.
+  (function(){
+    var t=warsaw.today,dow=new Date(t).getUTCDay(),dzis=mszeDnia(t),jutro=mszeDnia(t+DAY),
+      dzien=DNI[dow].charAt(0).toUpperCase()+DNI[dow].slice(1)+', '+data(t);
+    function godziny(m){return m?m.map(function(x){return hm(x[0]);}).join(' · '):'zob. ogłoszenia';}
+    $$('[data-date]').forEach(function(el){el.textContent=dzien+' '+new Date(t).getUTCFullYear();});
+    $$('[data-dayline]').forEach(function(el){el.innerHTML=dzien+' · Msze: <b class="num">'+godziny(dzis)+'</b>';});
+    $$('[data-msze-dzis]').forEach(function(el){el.textContent=godziny(dzis);});
+    $$('[data-for]').forEach(function(el){el.hidden=el.getAttribute('data-for')!==iso(t);});
+    $$('[data-liturgia]').forEach(function(a){
+      a.href='https://niezbednik.niedziela.pl/dzien/'+iso(t);
+      var p=a.previousElementSibling;if(p&&p.hidden)a.textContent='Czytania i liturgia dnia';
+    });
+    $$('[data-live-times]').forEach(function(list){
+      if(!dzis){
+        list.removeAttribute('data-live-times');list.hidden=true;
+        list.insertAdjacentHTML('afterend','<p class="side-note">Dziś porządek świąteczny — godziny Mszy podajemy w <a class="link" href="aktualnosci.html">ogłoszeniach duszpasterskich</a>.</p>');
+        return;
+      }
+      list.innerHTML=dzis.map(function(x){
+        return '<li data-t="'+x[0]+'"><span class="t">'+hm(x[0])+'</span><span class="state"></span>'+(x[1]?'<span class="n">'+x[1]+'</span>':'')+'</li>';
+      }).join('');
+    });
+    $$('[data-tomorrow]').forEach(function(el){
+      el.textContent='Jutro, '+W_DNI[(dow+1)%7]+' '+data(t+DAY)+', '+
+        (jutro?'pierwsza Msza o '+hm(jutro[0][0])+'.':'porządek świąteczny — godziny Mszy w ogłoszeniach.');
+    });
+    // W niedzielę zamiast niedzielnych godzin — godziny w dni powszednie
+    if(dow===0)$$('[data-msze-inne]').forEach(function(p){
+      p.querySelector('b').textContent='W dni powszednie:';p.querySelector('.num').textContent=POWSZEDNI.map(hm).join(' · ');
+    });
+    // Spowiedź także 18.00–19.00 w I piątek miesiąca: dziś (do 19.00) albo najbliższy
+    $$('[data-spowiedz]').forEach(function(el){
+      for(var i=0;i<38;i++){var d=new Date(t+i*DAY);if(d.getUTCDay()===5&&d.getUTCDate()<=7&&!(i===0&&now>=19*60))break;}
+      el.textContent=i===0?'dziś (I piątek miesiąca) także 18.00–19.00':'w I piątek miesiąca, '+(i===1?'jutro':data(t+i*DAY))+', także 18.00–19.00';
+    });
+  })();
 
   // Dzisiejsze Msze: trwa teraz / najbliższa / minione
   $$('[data-live-times]').forEach(function(list){
@@ -32,11 +109,10 @@
     var tm=document.querySelector('[data-tomorrow]');if(!nextFound&&tm)tm.hidden=false;
   });
 
-  // Najbliższe dni: dziś / jutro / za n dni, minione wyszarzone.
-  // Makieta ma ustalony dzień (data-dzien), docelowo liczy się od dzisiejszej daty.
+  // Najbliższe dni: dziś / jutro / za n dni, minione wyszarzone
   (function(){
     function utc(s){var p=s.split('-');return Date.UTC(+p[0],p[1]-1,+p[2]);}
-    var fixed=document.querySelector('[data-dzien]'),day=fixed?utc(fixed.getAttribute('data-dzien')):warsaw.today;
+    var day=warsaw.today;
     $$('[data-days] li').forEach(function(li){
       var t=li.querySelector('time'),dt=t&&t.getAttribute('datetime'),w=document.createElement('span');
       w.className='when';li.insertBefore(w,li.firstChild);
@@ -100,15 +176,13 @@
   // Godziny biura i zwiedzania wg dnia tygodnia: data-hours="2=16:00-17:00 3=…" (0 = niedziela).
   // [data-today] dostaje dzisiejsze godziny albo „zamknięte”, .status — stan i najbliższe otwarcie.
   (function(){
-    var DNI=['w niedzielę','w poniedziałek','we wtorek','w środę','w czwartek','w piątek','w sobotę'],
-      RZ=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'],dow=new Date(warsaw.today).getUTCDay();
+    var dow=new Date(warsaw.today).getUTCDay();
     function fmt(r){return r.replace(/:/g,'.').replace('-','–');}
     $$('[data-hours]').forEach(function(box){
       var h={},out=box.querySelector('[data-today]'),st=box.querySelector('.status');
       box.getAttribute('data-hours').split(/\s+/).forEach(function(p){var kv=p.split('=');h[kv[0]]=kv[1];});
       function next(){
-        for(var i=1;i<=7;i++){var d=(dow+i)%7;if(h[d]){var dt=new Date(warsaw.today+i*864e5);
-          return 'najbliżej '+DNI[d]+' '+dt.getUTCDate()+' '+RZ[dt.getUTCMonth()]+', '+fmt(h[d]);}}
+        for(var i=1;i<=7;i++){var d=(dow+i)%7;if(h[d])return 'najbliżej '+W_DNI[d]+' '+data(warsaw.today+i*DAY)+', '+fmt(h[d]);}
         return '';
       }
       var r=h[dow];
@@ -142,11 +216,7 @@
   (function(){
     var items=$$('.year li[data-season]');
     if(!items.length)return;
-    var RZ=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'],DAY=864e5,today=warsaw.today;
-    function easter(y){var a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),
-      h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),
-      mo=Math.floor((h+l-7*m+114)/31),da=((h+l-7*m+114)%31)+1;return Date.UTC(y,mo-1,da);}
-    function advent(y){var x=Date.UTC(y,11,25),dow=new Date(x).getUTCDay();return x-(dow===0?7:dow)*DAY-21*DAY;}
+    var today=warsaw.today;
     function ranges(y){return {
       adwent:[advent(y),Date.UTC(y,11,24)],
       post:[easter(y)-46*DAY,easter(y)-DAY],
@@ -159,7 +229,7 @@
     if(cur){flag(cur,'now','teraz');return;}
     var best=null,bestStart=Infinity;
     items.forEach(function(li){var k=li.getAttribute('data-season');[r0[k],r1[k]].forEach(function(r){if(r[0]>today&&r[0]<bestStart){bestStart=r[0];best=li;}});});
-    if(best){var s=new Date(bestStart);flag(best,'soon','od '+s.getUTCDate()+' '+RZ[s.getUTCMonth()]);}
+    if(best)flag(best,'soon','od '+data(bestStart));
   })();
 
   // Listy dokumentów: zapamiętywanie zaznaczeń i druk jednej sekcji
