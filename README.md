@@ -22,7 +22,9 @@ Prototyp nowej strony parafii przygotowany jako pilotaż zamiennika dla platform
 - `assets/fonts/` — Alegreya i Atkinson Hyperlegible Next (licencja SIL Open Font License), tylko znaki łacińskie z polskimi
 - `assets/img/` — zdjęcia Bursztynowego Ołtarza i bazyliki; zdjęcie prezbiterium: fot. Wojciech Chomka, źródła pozostałych do potwierdzenia
 - `_partials/` — wspólne fragmenty stron: część `<head>`, nagłówek z menu, pasek dnia, stopka
+- `assets/data/sentencje.json` — sentencje dnia, wspólne dla wszystkich parafii: dosłowne cytaty z Biblii Tysiąclecia; strona główna co dzień bierze kolejną
 - `build.py` — wstawia fragmenty z `_partials/` do wszystkich stron
+- `sprawdz_sentencje.py` — sprawdza każdą sentencję z tekstem Biblii Tysiąclecia (biblia.deon.pl); uruchomić po dodaniu albo zmianie sentencji
 - `TODO.md` — lista rzeczy do zrobienia, m.in. funkcje przyszłego CRM dla biura parafialnego
 
 ## Nagłówek, menu i stopka
