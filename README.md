@@ -17,11 +17,12 @@ Prototyp nowej strony parafii przygotowany jako pilotaż zamiennika dla platform
 ## Struktura
 
 - `assets/css/style.css` — wspólne style (paleta: kamień, cegła, bursztyn; jasny i ciemny motyw)
-- `assets/js/main.js` — menu mobilne, „najbliższa Msza”, „dziś / jutro / za n dni” w najbliższych dniach, pokaz zdjęć ołtarza, status biura i zwiedzania, spis treści, okres liturgiczny, listy dokumentów, kopiowanie numerów kont
+- `assets/js/main.js` — porządek Mszy (`mszeDnia`: godziny i dopiski wg dnia tygodnia, okresu i miesiąca; w święta odsyła do ogłoszeń), z niego data i Msze dziś na stronie głównej i w pasku dnia; menu mobilne, „najbliższa Msza”, „dziś / jutro / za n dni” w najbliższych dniach, pokaz zdjęć ołtarza, status biura i zwiedzania, spis treści, okres liturgiczny, listy dokumentów, kopiowanie numerów kont
 - `assets/fonts/` — Alegreya i Atkinson Hyperlegible Next (licencja SIL Open Font License), tylko znaki łacińskie z polskimi
 - `assets/img/` — zdjęcia Bursztynowego Ołtarza i bazyliki; zdjęcie prezbiterium: fot. Wojciech Chomka, źródła pozostałych do potwierdzenia
 - `_partials/` — wspólne fragmenty stron: część `<head>`, nagłówek z menu, pasek dnia, stopka
 - `build.py` — wstawia fragmenty z `_partials/` do wszystkich stron
+- `TODO.md` — lista rzeczy do zrobienia, m.in. funkcje przyszłego CRM dla biura parafialnego
 
 ## Nagłówek, menu i stopka
 
