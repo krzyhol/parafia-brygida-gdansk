@@ -19,7 +19,7 @@ Prototyp nowej strony parafii przygotowany jako pilotaż zamiennika dla platform
 ## Struktura
 
 - `assets/css/style.css` — wspólne style (paleta: kamień, cegła, bursztyn; jasny i ciemny motyw)
-- `assets/js/main.js` — porządek Mszy (`mszeDnia`: godziny i dopiski wg dnia tygodnia, okresu i miesiąca; w święta odsyła do ogłoszeń), z niego data i Msze dziś na stronie głównej i w pasku dnia; widżet liturgii dnia z niedziela.pl na `liturgia.html`; menu mobilne, „najbliższa Msza”, „dziś / jutro / za n dni” w najbliższych dniach, pokaz zdjęć ołtarza, status biura i zwiedzania, spis treści, okres liturgiczny, listy dokumentów, kopiowanie numerów kont
+- `assets/js/main.js` — porządek Mszy (`mszeDnia`: godziny i dopiski wg dnia tygodnia, okresu i miesiąca; w święta odsyła do ogłoszeń), z niego data i Msze dziś na stronie głównej i w pasku dnia; widżet liturgii dnia z niedziela.pl na `liturgia.html`; menu mobilne (hamburger, zamykanie Esc i kliknięciem obok), sekcje stopki zwijane na telefonie, „najbliższa Msza”, „dziś / jutro / za n dni” w najbliższych dniach, pokaz zdjęć ołtarza, status biura i zwiedzania, spis treści, okres liturgiczny, listy dokumentów, kopiowanie numerów kont
 - `assets/fonts/` — Alegreya i Atkinson Hyperlegible Next (licencja SIL Open Font License), tylko znaki łacińskie z polskimi
 - `assets/img/aktualnosci/` — plakaty wydarzeń z obecnej strony parafii: `<id>.jpg` na stronę wydarzenia, `<id>-m.jpg` (360 px) do kart i list
 - `assets/img/` — zdjęcia Bursztynowego Ołtarza i bazyliki; zdjęcie prezbiterium: fot. Wojciech Chomka, źródła pozostałych do potwierdzenia
@@ -38,6 +38,10 @@ python3 build.py
 ```
 
 `python3 build.py --check` tylko sprawdza, czy strony są aktualne. Skrypt sam dodaje `aria-current` w menu, ścieżki absolutne w `404.html`, a pasek dnia pomija na stronach z `<!-- include: header bez-paska -->` (strona główna).
+
+## Telefon
+
+Do 600 px szerokości: nagłówek ma samą ikonę menu i bez podpisu pod nazwą, pasek dnia odjeżdża przy przewijaniu (przyklejony zostaje tylko pasek z logo). Stopka pokazuje adres i przyciski telefonu, dojazdu i e-maila; biuro (z godzinami na dziś), ofiary i dokumenty są zwinięte (`<details>`, na szerszym ekranie zawsze otwarte). Na stronie głównej skróty „Dla parafian” i „Dla zwiedzających” są bez opisów, a akapit o historii nastawy jest schowany (jest na stronie Zwiedzanie).
 
 ## Podgląd lokalny
 

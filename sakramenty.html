@@ -28,10 +28,10 @@
     <a class="brand" href="index.html"><svg width="24" height="29" viewBox="0 0 100 120" aria-hidden="true"><path d="M15,115 L15,58 A35,35 0 0 1 50,10 A35,35 0 0 1 85,58 L85,115 Z" fill="none" stroke="currentColor" stroke-width="7"/></svg><span><b>Bazylika św. Brygidy</b><small>Parafia rzymskokatolicka · Gdańsk</small></span></a>
     <nav class="primary" aria-label="Główna"><a href="msze-i-nabozenstwa.html">Msze i nabożeństwa</a><a href="sakramenty.html" aria-current="page">Sakramenty</a><a href="wspolnota.html">Wspólnota</a><a href="zwiedzanie.html">Zwiedzanie</a><a href="aktualnosci.html">Aktualności</a><a href="kontakt.html">Kontakt</a></nav>
     <a class="give" href="wesprzyj-nas.html">Wesprzyj nas</a>
-    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mnav">Menu</button>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mnav"><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span><span class="menu-txt">Menu</span></button>
   </div>
   <nav class="mnav" id="mnav" aria-label="Główna (mobilna)"><div class="wrap"><ul>
-    <li><a href="msze-i-nabozenstwa.html">Msze i nabożeństwa</a></li><li><a href="sakramenty.html" aria-current="page">Sakramenty</a></li><li><a href="wspolnota.html">Wspólnota</a></li><li><a href="zwiedzanie.html">Zwiedzanie</a></li><li><a href="aktualnosci.html">Aktualności</a></li><li><a href="kontakt.html">Kontakt</a></li><li><a href="wesprzyj-nas.html">Wesprzyj nas</a></li>
+    <li><a href="msze-i-nabozenstwa.html">Msze i nabożeństwa</a></li><li><a href="sakramenty.html" aria-current="page">Sakramenty</a></li><li><a href="wspolnota.html">Wspólnota</a></li><li><a href="zwiedzanie.html">Zwiedzanie</a></li><li><a href="aktualnosci.html">Aktualności</a></li><li><a href="kontakt.html">Kontakt</a></li><li class="mnav-give"><a href="wesprzyj-nas.html">Wesprzyj nas</a></li>
   </ul></div></nav>
 </header>
 <!-- /include -->
@@ -144,30 +144,33 @@
       <div>
         <h2>Parafia pw. św. Brygidy</h2>
         <p>ul. Profesorska 17<br>80-856 Gdańsk</p>
-        <p><a href="tel:+48721171133">721 171 133</a><br><a href="mailto:brygidaszwedzka@gmail.com">brygidaszwedzka@gmail.com</a></p>
-        <p><a href="kontakt.html">Kontakt i dojazd</a></p>
+        <ul class="foot-links">
+          <li><a href="tel:+48721171133">721 171 133</a></li>
+          <li><a href="mailto:brygidaszwedzka@gmail.com">brygidaszwedzka@gmail.com</a></li>
+          <li><a href="kontakt.html">Kontakt i dojazd</a></li>
+        </ul>
       </div>
-      <div>
-        <h2>Biuro parafialne</h2>
+      <details class="foot-sec" open data-hours="2=16:00-17:00 3=16:00-17:00 4=19:00-19:30">
+        <summary><h2>Biuro parafialne</h2><span class="foot-today">dziś <span data-today>16.00–17.00</span></span></summary>
         <dl class="hours">
           <dt>wtorek</dt><dd>16.00–17.00</dd>
           <dt>środa</dt><dd>16.00–17.00</dd>
           <dt>czwartek</dt><dd>19.00–19.30</dd>
         </dl>
-      </div>
-      <div>
-        <h2>Ofiary</h2>
+      </details>
+      <details class="foot-sec" open>
+        <summary><h2>Ofiary</h2></summary>
         <p>37 1240 2920 1111 0010 2775 1531</p>
         <p>BLIK na numer 721 171 133</p>
         <p>tytuł: na cele kultu religijnego</p>
         <p><a href="wesprzyj-nas.html">Jak wesprzeć parafię</a></p>
-      </div>
-      <div>
-        <h2>Dokumenty</h2>
+      </details>
+      <details class="foot-sec" open>
+        <summary><h2>Dokumenty</h2></summary>
         <p><a href="https://www.brygida.gdansk.pl/?modul=strony&amp;strona=96">Standardy ochrony małoletnich</a></p>
         <p><a href="https://www.brygida.gdansk.pl/?modul=strony&amp;strona=75">Ochrona danych osobowych</a></p>
         <p><a href="https://www.brygida.gdansk.pl/?modul=strony&amp;strona=76">Polityka prywatności</a></p>
-      </div>
+      </details>
     </div>
     <div class="foot-bottom">
       <span>© Parafia pw. św. Brygidy w Gdańsku</span>
