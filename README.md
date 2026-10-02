@@ -11,13 +11,14 @@ Prototyp nowej strony parafii przygotowany jako pilotaż zamiennika dla platform
 - `zwiedzanie.html` — godziny i wstęp, przewodnicy, historia bazyliki, Bursztynowy Ołtarz
 - `aktualnosci.html` — ogłoszenia duszpasterskie, wydarzenia, galerie
 - `kontakt.html` — biuro parafialne, dojazd, telefony
+- `liturgia.html` — liturgia dnia: pełne czytania z widżetu Niezbędnika Katolika („Niedziela”), ze wskazaniem źródła
 - `wesprzyj-nas.html` — konta (z kopiowaniem numeru), BLIK, Bursztynowy Ołtarz, konserwacja zabytku
 - `404.html` — strona błędu dla GitHub Pages; ma ścieżki absolutne `/parafia-brygida-gdansk/…`, bo GitHub Pages serwuje ją pod dowolnym adresem
 
 ## Struktura
 
 - `assets/css/style.css` — wspólne style (paleta: kamień, cegła, bursztyn; jasny i ciemny motyw)
-- `assets/js/main.js` — porządek Mszy (`mszeDnia`: godziny i dopiski wg dnia tygodnia, okresu i miesiąca; w święta odsyła do ogłoszeń), z niego data i Msze dziś na stronie głównej i w pasku dnia; menu mobilne, „najbliższa Msza”, „dziś / jutro / za n dni” w najbliższych dniach, pokaz zdjęć ołtarza, status biura i zwiedzania, spis treści, okres liturgiczny, listy dokumentów, kopiowanie numerów kont
+- `assets/js/main.js` — porządek Mszy (`mszeDnia`: godziny i dopiski wg dnia tygodnia, okresu i miesiąca; w święta odsyła do ogłoszeń), z niego data i Msze dziś na stronie głównej i w pasku dnia; widżet liturgii dnia z niedziela.pl na `liturgia.html`; menu mobilne, „najbliższa Msza”, „dziś / jutro / za n dni” w najbliższych dniach, pokaz zdjęć ołtarza, status biura i zwiedzania, spis treści, okres liturgiczny, listy dokumentów, kopiowanie numerów kont
 - `assets/fonts/` — Alegreya i Atkinson Hyperlegible Next (licencja SIL Open Font License), tylko znaki łacińskie z polskimi
 - `assets/img/` — zdjęcia Bursztynowego Ołtarza i bazyliki; zdjęcie prezbiterium: fot. Wojciech Chomka, źródła pozostałych do potwierdzenia
 - `_partials/` — wspólne fragmenty stron: część `<head>`, nagłówek z menu, pasek dnia, stopka

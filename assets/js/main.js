@@ -59,8 +59,7 @@
   var btn=document.querySelector('.menu-btn'),nav=document.getElementById('mnav');
   if(btn&&nav){btn.addEventListener('click',function(){var o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o?'true':'false');});}
 
-  // Dzisiejsza data, Msze dziś i jutro, link do liturgii dnia.
-  // Elementy z data-for="RRRR-MM-DD" (wspomnienie, czytania, kolor szat) są tylko na ten dzień — w inne dni znikają.
+  // Dzisiejsza data, Msze dziś i jutro
   (function(){
     var t=warsaw.today,dow=new Date(t).getUTCDay(),dzis=mszeDnia(t),jutro=mszeDnia(t+DAY),
       dzien=DNI[dow].charAt(0).toUpperCase()+DNI[dow].slice(1)+', '+data(t);
@@ -68,11 +67,7 @@
     $$('[data-date]').forEach(function(el){el.textContent=dzien+' '+new Date(t).getUTCFullYear();});
     $$('[data-dayline]').forEach(function(el){el.innerHTML=dzien+' · Msze: <b class="num">'+godziny(dzis)+'</b>';});
     $$('[data-msze-dzis]').forEach(function(el){el.textContent=godziny(dzis);});
-    $$('[data-for]').forEach(function(el){el.hidden=el.getAttribute('data-for')!==iso(t);});
-    $$('[data-liturgia]').forEach(function(a){
-      a.href='https://niezbednik.niedziela.pl/dzien/'+iso(t);
-      var p=a.previousElementSibling;if(p&&p.hidden)a.textContent='Czytania i liturgia dnia';
-    });
+    $$('[data-niezbednik]').forEach(function(a){a.href='https://niezbednik.niedziela.pl/liturgia/'+iso(t);});
     $$('[data-live-times]').forEach(function(list){
       if(!dzis){
         list.removeAttribute('data-live-times');list.hidden=true;
@@ -96,6 +91,24 @@
       for(var i=0;i<38;i++){var d=new Date(t+i*DAY);if(d.getUTCDay()===5&&d.getUTCDate()<=7&&!(i===0&&now>=19*60))break;}
       el.textContent=i===0?'dziś (I piątek miesiąca) także 18.00–19.00':'w I piątek miesiąca, '+(i===1?'jutro':data(t+i*DAY))+', także 18.00–19.00';
     });
+  })();
+
+  // Liturgia dnia na liturgia.html z widżetu Niezbędnika Katolika (niedziela.pl/webmaster/liturgia).
+  // Widżet wypisuje się przez document.write, więc przechwytujemy wynik i wstawiamy go
+  // do kontenera — strona nie czeka na zewnętrzny skrypt. Gdy widżet nie odpowie, zostaje treść zastępcza.
+  // Regulamin widżetu: nie usuwać jego grafik i linków; zmieniać wolno tylko kolory i czcionkę.
+  (function(){
+    var box=document.querySelector('[data-liturgia]');if(!box)return;
+    var write=document.write,s=document.createElement('script');
+    function restore(){document.write=write;}
+    document.write=function(h){
+      restore();if(h.indexOf('nd_liturgia')<0)return;
+      box.innerHTML=h;
+      box.classList.add('is-loaded');
+    };
+    s.async=true;s.onerror=restore;
+    s.src='https://widget.niedziela.pl/liturgia_out.js.php';
+    document.head.appendChild(s);
   })();
 
   // Dzisiejsze Msze: trwa teraz / najbliższa / minione
