@@ -7,7 +7,7 @@ Prototyp nowej strony parafii przygotowany jako pilotaż zamiennika dla platform
 - `index.html` — strona główna: w centrum aktualności (najbliższe dni i link do ogłoszeń), z boku widżety „Msze święte dziś” (najbliższa liczona na żywo wg czasu warszawskiego), biuro i zwiedzanie dziś; niżej pokaz zdjęć Bursztynowego Ołtarza
 - `msze-i-nabozenstwa.html` — porządek Mszy, nabożeństwa w tygodniu i w roku liturgicznym, intencje, spowiedź także w językach obcych
 - `sakramenty.html` — chrzest, I Komunia, bierzmowanie, małżeństwo; listy dokumentów do odhaczania i druku
-- `wspolnota.html` — duszpasterze, grupy parafialne, historia parafii
+- `wspolnota.html` — „W parafii” (duszpasterze, organistka), grupy parafialne, proboszczowie w historii parafii
 - `zwiedzanie.html` — godziny i wstęp, przewodnicy, historia bazyliki, Bursztynowy Ołtarz
 - `aktualnosci.html` — ogłoszenia duszpasterskie, wydarzenia, galerie
 - `wydarzenie-*.html` — strony wydarzeń (opis, program, plakat, inne wydarzenia); karty na stronie głównej i lista w aktualnościach do nich prowadzą
