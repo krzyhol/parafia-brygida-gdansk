@@ -16,7 +16,8 @@ Placeholdery w fragmentach:
   {{base}}     prefiks ścieżek: pusty, a w 404.html absolutny (patrz ABSOLUTE)
   {{dayline}}  pasek dnia z _partials/dayline.html; strona może go pominąć
                flagą: <!-- include: header bez-paska -->
-W nagłówku link do bieżącej strony dostaje aria-current="page".
+W nagłówku link do bieżącej strony dostaje aria-current="page"; strony wydarzeń (wydarzenie-*.html)
+podświetlają „Aktualności”.
 """
 import re
 import sys
@@ -41,7 +42,8 @@ def render(name, flags, page):
     html = html.replace('{{base}}', base)
     if name == 'header':
         # linki w menu i przycisk „Wesprzyj nas”; logo (class="brand") pomijamy
-        html = re.sub(r'<a( class="give")? href="%s"' % re.escape(base + page),
+        current = 'aktualnosci.html' if page.startswith('wydarzenie-') else page
+        html = re.sub(r'<a( class="give")? href="%s"' % re.escape(base + current),
                       lambda m: m.group(0) + ' aria-current="page"', html)
     return html
 

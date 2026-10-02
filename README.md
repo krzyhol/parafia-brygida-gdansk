@@ -10,6 +10,7 @@ Prototyp nowej strony parafii przygotowany jako pilotaż zamiennika dla platform
 - `wspolnota.html` — duszpasterze, grupy parafialne, historia parafii
 - `zwiedzanie.html` — godziny i wstęp, przewodnicy, historia bazyliki, Bursztynowy Ołtarz
 - `aktualnosci.html` — ogłoszenia duszpasterskie, wydarzenia, galerie
+- `wydarzenie-*.html` — strony wydarzeń (opis, program, plakat, inne wydarzenia); karty na stronie głównej i lista w aktualnościach do nich prowadzą
 - `kontakt.html` — biuro parafialne, dojazd, telefony
 - `liturgia.html` — liturgia dnia: pełne czytania z widżetu Niezbędnika Katolika („Niedziela”), ze wskazaniem źródła
 - `wesprzyj-nas.html` — konta (z kopiowaniem numeru), BLIK, Bursztynowy Ołtarz, konserwacja zabytku
@@ -20,6 +21,7 @@ Prototyp nowej strony parafii przygotowany jako pilotaż zamiennika dla platform
 - `assets/css/style.css` — wspólne style (paleta: kamień, cegła, bursztyn; jasny i ciemny motyw)
 - `assets/js/main.js` — porządek Mszy (`mszeDnia`: godziny i dopiski wg dnia tygodnia, okresu i miesiąca; w święta odsyła do ogłoszeń), z niego data i Msze dziś na stronie głównej i w pasku dnia; widżet liturgii dnia z niedziela.pl na `liturgia.html`; menu mobilne, „najbliższa Msza”, „dziś / jutro / za n dni” w najbliższych dniach, pokaz zdjęć ołtarza, status biura i zwiedzania, spis treści, okres liturgiczny, listy dokumentów, kopiowanie numerów kont
 - `assets/fonts/` — Alegreya i Atkinson Hyperlegible Next (licencja SIL Open Font License), tylko znaki łacińskie z polskimi
+- `assets/img/aktualnosci/` — plakaty wydarzeń z obecnej strony parafii: `<id>.jpg` na stronę wydarzenia, `<id>-m.jpg` (360 px) do kart i list
 - `assets/img/` — zdjęcia Bursztynowego Ołtarza i bazyliki; zdjęcie prezbiterium: fot. Wojciech Chomka, źródła pozostałych do potwierdzenia
 - `_partials/` — wspólne fragmenty stron: część `<head>`, nagłówek z menu, pasek dnia, stopka
 - `assets/data/sentencje.json` — sentencje dnia, wspólne dla wszystkich parafii: dosłowne cytaty z Biblii Tysiąclecia; strona główna co dzień bierze kolejną
