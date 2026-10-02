@@ -145,11 +145,11 @@ section[id],.side-box h2[id]{scroll-margin-top:104px}
 .times li.past :is(.t,.n){color:var(--ink-3)}
 .times li.next .t,.times li.now .t{color:var(--brick)}
 .tomorrow{margin:10px 0 0;font-weight:700;font-size:15.5px}
-.office{margin-top:16px;padding-top:12px;border-top:1px solid var(--rule)}
-.office h2{font-size:19px;margin-bottom:2px}
-.office p{margin:0;font-size:15.5px}
-.office .num{font-size:19px}
-.office .status{display:flex;margin:2px 0 4px}
+.home-office{margin-top:16px;padding-top:12px;border-top:1px solid var(--rule)}
+.home-office h2{font-size:19px;margin-bottom:2px}
+.home-office p{margin:0;font-size:15.5px}
+.home-office .num{font-size:19px}
+.home-office .status{display:flex;margin:2px 0 4px}
 .home-visit{overflow:hidden}
 .visit-photo{position:relative;background:#15100B}
 .visit-photo img{display:block;width:100%;height:auto}
