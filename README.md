@@ -7,12 +7,17 @@ Prototyp nowej strony parafii przygotowany jako pilotaż zamiennika dla platform
 - `index.html` — strona główna: dzisiejsze Msze (najbliższa liczona na żywo wg czasu warszawskiego), ogłoszenia, najbliższe wydarzenia, Bursztynowy Ołtarz
 - `msze-i-nabozenstwa.html` — porządek Mszy, nabożeństwa w tygodniu i w roku liturgicznym, intencje, spowiedź także w językach obcych
 - `sakramenty.html` — chrzest, I Komunia, bierzmowanie, małżeństwo; listy dokumentów do odhaczania i druku
-- `404.html` — strona błędu dla GitHub Pages
+- `wspolnota.html` — duszpasterze, grupy parafialne, historia parafii
+- `zwiedzanie.html` — godziny i wstęp, przewodnicy, historia bazyliki, Bursztynowy Ołtarz
+- `aktualnosci.html` — ogłoszenia duszpasterskie, wydarzenia, galerie
+- `kontakt.html` — biuro parafialne, dojazd, telefony
+- `wesprzyj-nas.html` — konta (z kopiowaniem numeru), BLIK, Bursztynowy Ołtarz, konserwacja zabytku
+- `404.html` — strona błędu dla GitHub Pages; ma ścieżki absolutne `/parafia-brygida-gdansk/…`, bo GitHub Pages serwuje ją pod dowolnym adresem
 
 ## Struktura
 
 - `assets/css/style.css` — wspólne style (paleta: kamień, cegła, bursztyn; jasny i ciemny motyw)
-- `assets/js/main.js` — menu mobilne, „najbliższa Msza”, status biura, spis treści, listy dokumentów
+- `assets/js/main.js` — menu mobilne, „najbliższa Msza”, status biura, spis treści, okres liturgiczny, listy dokumentów, kopiowanie numerów kont
 - `assets/fonts/` — Alegreya i Atkinson Hyperlegible Next (licencja SIL Open Font License), tylko znaki łacińskie z polskimi
 - `assets/img/` — zdjęcia Bursztynowego Ołtarza; zdjęcie prezbiterium: fot. Wojciech Chomka
 
