@@ -8,7 +8,7 @@
 @font-face{font-family:'Brygida Cyfry';font-style:normal;font-weight:400 800;font-display:swap;size-adjust:108%;src:url(../fonts/Alegreya-normal-latin.woff2) format('woff2');unicode-range:U+0030-0039;}
 :root{
   --wall:#F1EAD9; --paper:#FBF6EC; --ink:#2A2019; --ink-2:#6B5C4E; --ink-3:#8A7967;
-  --rule:#DDD0B8; --brick:#8C3B2C; --amber:#C6902F; --amber-ink:#86560F; --ok:#266B42; --lit:#029f4c;
+  --rule:#DDD0B8; --brick:#8C3B2C; --amber:#C6902F; --amber-ink:#86560F; --ok:#266B42;
   --band:#4A3626; --band-ink:#EDE3D2; --band-dim:#C8B8A2; --band-line:rgba(255,255,255,.14); --glow:#F0C36B;
   --on-amber:#2A1D06;
   --sans:"Brygida Cyfry","Atkinson Hyperlegible Next",system-ui,sans-serif;
@@ -112,9 +112,7 @@ section[id],.side-box h2[id]{scroll-margin-top:104px}
 .home-visit{grid-area:visit}
 .home-thought{grid-area:thought}
 .dateline{display:flex;align-items:center;gap:10px;font-size:16px;margin:0}
-.swatch{flex:none;width:13px;height:13px;border-radius:2px;background:var(--lit);box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
-.readings{font-size:15px;color:var(--ink-2);margin:4px 0 0 23px}
-.dateline:has(.swatch[hidden])+.readings{margin-left:0}
+.readings{font-size:15px;color:var(--ink-2);margin:4px 0 0}
 .home-news h1{font-size:clamp(40px,4.6vw,54px);margin:26px 0 20px}
 .home-news h2.label{margin:0 0 12px}
 .jump{display:none;margin:14px 0 0;font-size:15.5px;font-weight:700}
@@ -281,6 +279,28 @@ section[id],.side-box h2[id]{scroll-margin-top:104px}
 .content h2{font-size:34px;margin-bottom:16px}
 .content h3{font-size:23px;margin:28px 0 8px}
 .content p{margin:0 0 14px;max-width:65ch}
+/* Widżet liturgii Niezbędnika Katolika: regulamin pozwala zmieniać tylko kolory i czcionkę, grafiki i linki zostają */
+.liturgy-full{max-width:780px;padding-bottom:88px}
+.liturgy-src{font-size:14.5px;color:var(--ink-3);margin:40px 0 0;padding-top:16px;border-top:1px solid var(--rule)}
+.liturgy-src a{color:inherit}
+#nd_liturgia_naglowek{padding-bottom:24px;border-bottom:1px solid var(--rule)}
+.nd_dzien{font:700 24px/1.3 var(--serif);margin:0 0 14px}
+.nd_msza:empty{display:none}
+.nd_wstep{margin:4px 0;color:var(--ink-2)}
+.nd_sigla{color:var(--ink);font-weight:700}
+.nd_czytanie_nazwa{font:700 13.5px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--amber-ink);margin:40px 0 4px}
+.nd_czytanie_sigla{font:700 21px/1.3 var(--serif);margin:0 0 12px}
+.nd_czytanie_tresc,.nd_psalm{margin:0 0 12px;max-width:65ch}
+.nd_psalm{padding-left:1.2em}
+.nd_psalm_refren{font-weight:700;color:var(--brick);margin:8px 0}
+.nd_czytanie_odp{font-style:italic;color:var(--ink-2);margin:12px 0 0}
+.nd_banner_bottom{max-width:100%;height:auto}
+#nd_liturgia a{color:var(--brick)}
+/* Banery widżetu mają wbudowane float:right; na wąskim ekranie tekst by je opływał, więc idą rzędem nad nagłówkiem */
+@media (max-width:700px){
+  #nd_liturgia>div[style*="float"]{float:none!important;margin:0 0 20px!important;display:flex!important;flex-wrap:wrap;align-items:center;gap:8px 12px}
+  #nd_liturgia>div[style*="float"] br{display:none}
+}
 p.after-list{margin-top:18px}
 @media (max-width:900px){
   .page-body{grid-template-columns:1fr;gap:28px}
