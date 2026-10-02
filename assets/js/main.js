@@ -97,13 +97,30 @@
     }
   });
 
-  // Status biura
-  $$('[data-open]').forEach(function(el){
-    var r=el.getAttribute('data-open').split('-'),a=toMin(r[0]),b=toMin(r[1]);
-    if(now>=a&&now<b){el.textContent='otwarte teraz';el.classList.add('open');}
-    else if(now<a){el.textContent='otwarcie o '+r[0].replace(':','.');}
-    else{el.textContent='dziś już zamknięte';}
-  });
+  // Godziny biura i zwiedzania wg dnia tygodnia: data-hours="2=16:00-17:00 3=…" (0 = niedziela).
+  // [data-today] dostaje dzisiejsze godziny albo „zamknięte”, .status — stan i najbliższe otwarcie.
+  (function(){
+    var DNI=['w niedzielę','w poniedziałek','we wtorek','w środę','w czwartek','w piątek','w sobotę'],
+      RZ=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'],dow=new Date(warsaw.today).getUTCDay();
+    function fmt(r){return r.replace(/:/g,'.').replace('-','–');}
+    $$('[data-hours]').forEach(function(box){
+      var h={},out=box.querySelector('[data-today]'),st=box.querySelector('.status');
+      box.getAttribute('data-hours').split(/\s+/).forEach(function(p){var kv=p.split('=');h[kv[0]]=kv[1];});
+      function next(){
+        for(var i=1;i<=7;i++){var d=(dow+i)%7;if(h[d]){var dt=new Date(warsaw.today+i*864e5);
+          return 'najbliżej '+DNI[d]+' '+dt.getUTCDate()+' '+RZ[dt.getUTCMonth()]+', '+fmt(h[d]);}}
+        return '';
+      }
+      var r=h[dow];
+      if(!r){if(out)out.textContent='zamknięte';if(st)st.textContent=next();return;}
+      if(out)out.textContent=fmt(r);
+      if(!st)return;
+      var a=toMin(r.split('-')[0]),b=toMin(r.split('-')[1]);
+      if(now>=a&&now<b){st.textContent='otwarte teraz';st.classList.add('open');}
+      else if(now<a){st.textContent='otwarcie o '+fmt(r.split('-')[0]);}
+      else{st.textContent='dziś już zamknięte, '+next();}
+    });
+  })();
 
   // Etykiety kolumn dla tabel składanych na wąskim ekranie
   $$('table.stack').forEach(function(t){

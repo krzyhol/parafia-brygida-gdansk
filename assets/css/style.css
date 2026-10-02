@@ -149,6 +149,7 @@ section[id],.side-box h2[id]{scroll-margin-top:104px}
 .office h2{font-size:19px;margin-bottom:2px}
 .office p{margin:0;font-size:15.5px}
 .office .num{font-size:19px}
+.office .status{display:flex;margin:2px 0 4px}
 .home-visit{overflow:hidden}
 .visit-photo{position:relative;background:#15100B}
 .visit-photo img{display:block;width:100%;height:auto}
