@@ -29,6 +29,7 @@
 
   // Porządek Mszy (jak na stronie Msze i nabożeństwa) i dopiski na dany dzień.
   // W święta poniżej porządek jest inny i podaje go ogłoszenie, więc mszeDnia zwraca null.
+  // Docelowo takie dni z godzinami wpisuje biuro w CRM (TODO.md).
   var NIEDZIELA=['07:00','09:00','11:00','12:30','18:30'],POWSZEDNI=['07:00','15:00','18:30'],
     SWIETA=['1-1','1-6','8-15','11-1','12-24','12-25','12-26'],    // miesiąc-dzień
     SWIETA_RUCHOME=[-3,-2,-1,0,1,60];                               // dni od Wielkanocy: Triduum, Wielkanoc, poniedziałek, Boże Ciało

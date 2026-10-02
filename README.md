@@ -22,6 +22,7 @@ Prototyp nowej strony parafii przygotowany jako pilotaż zamiennika dla platform
 - `assets/img/` — zdjęcia Bursztynowego Ołtarza i bazyliki; zdjęcie prezbiterium: fot. Wojciech Chomka, źródła pozostałych do potwierdzenia
 - `_partials/` — wspólne fragmenty stron: część `<head>`, nagłówek z menu, pasek dnia, stopka
 - `build.py` — wstawia fragmenty z `_partials/` do wszystkich stron
+- `TODO.md` — lista rzeczy do zrobienia, m.in. funkcje przyszłego CRM dla biura parafialnego
 
 ## Nagłówek, menu i stopka
 
